@@ -1,0 +1,32 @@
+#Excluir database
+
+drop database exemplosenai;
+
+#Criar uma database
+
+create database escola;
+
+#Abrir uma database
+
+use escola;
+
+#Criar tabela com atributos ( auto_increment cria uma matricula aleatória, not null campo não pode ser vazio, unique não pode ter campos iguais )
+
+create table Aluno ( matricula int primary key auto_increment, nome varchar(80) not null, nascimento date, cpf char(14) not null unique, responsavel varchar(80) not null, email varchar(80) unique );
+
+#Olhar a tabela
+
+desc aluno;
+
+#Cadastrar Alguem no BDD
+
+insert into aluno values ( 3001, "Godofredo Henrique", "2000-03-15", "123.456.789-01", "Godojane Maia", "gh@email.com");
+
+#Visualizar os cadastros da tabela
+
+select * from aluno
+
+#Cadastrar alguem no BDD com auto_increment
+
+insert into aluno values ( null, "Josefina Winter", "1945-02-10", "123.456.789-02", "Clenisbaldo Winter", null )
+

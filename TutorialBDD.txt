@@ -30,3 +30,15 @@ select * from aluno
 
 insert into aluno values ( null, "Josefina Winter", "1945-02-10", "123.456.789-02", "Clenisbaldo Winter", null )
 
+#Como fazer chave estrangeira
+
+create table Leciona (id_leciona int primary key, fk_Disciplina_cod_disciplina int not null, fk_Professor_matricula int not null);
+
+alter table Leciona add constraint fkdis foreign key (fk_Disciplina_cod_disciplina) references Disciplina (cod_disciplina);
+
+alter table Leciona add constraint fkprof foreign key (fk_Professor_matricula) references Professor (matricula);
+
+#Como modificar tabela
+
+alter table Veiculo rename Carro
+

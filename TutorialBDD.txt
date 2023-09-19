@@ -42,3 +42,20 @@ alter table Leciona add constraint fkprof foreign key (fk_Professor_matricula) r
 
 alter table Veiculo rename Carro
 
+insert into carro values ( 101, 'VW', 'Gol', 'ABC1234' );
+
+ 
+
+insert into carro values ( null, 'FIAT', 'Marea Turbo', 'ABC1235' );
+
+ 
+
+insert into carro values ( null, 'Ford', 'Ka', 'ABC1236' );
+
+ 
+
+insert into carro values ( null, 'Toyota', 'Corolla', 'ABC1237' );
+
+ 
+
+insert into carro values ( null, 'Honda', 'Civic', 'ABC1238' );

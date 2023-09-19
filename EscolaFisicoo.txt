@@ -4,38 +4,43 @@ use escola;
 
 create table Aluno ( matricula int primary key auto_increment, nome varchar(80) not null, nascimento date, cpf char(14) not null unique, responsavel varchar(80) not null, email varchar(80) unique );
 
-create table turma ( numero int primary key, turno char(1) not null, definicao varchar(60) not null );
+create table turma ( numero int primary key, turno char(1) not null, definicao varchar(60));
 
-insert into aluno values ( 3001, "Godofredo Henrique", "2000-03-15", "123.456.789-01", "Godojane Maia", "gh@email.com");
+create table disciplina ( cod_disciplina int primary key auto_increment, nome varchar(30) not null );
 
-select * from aluno;
+create table estuda ( idEstuda int primary key auto_increment, fk_Aluno_matricula int not null, fk_Turma_numero int not null );
 
-insert into aluno values ( null, "Josefina Winter", "1945-02-10", "123.456.789-02", "Clenisbaldo Winter", null )
+create table possui ( idPossui int primary key auto_increment, fk_Disciplina_cod_disciplina int not null, fk_Turma_numero int not null );
 
-create table Disciplina ( cod_disciplina int primary key auto_increment, nome varchar(80) not null );
+create table professor ( matricula int primary key auto_increment, nome varchar(80) not null, formacao varchar(30));
 
-desc disciplina;
+create table leciona ( idLeciona int primary key auto_increment, fk_Disciplina_cod_disciplina int not null, fk_Professor_matricula int not null );
 
-create table estuda ( id_estuda int primary key auto_increment, fk_Aluno_matricula int not null, fk_Turma_numero int not null );
 
-alter table estuda add constraint fkmat foreign key (fk_Aluno_matricula) references Aluno(matricula);
 
-alter table estuda add constraint fkturma foreign key (fk_Turma_numero) references Turma (numero);
+alter table estuda add constraint fkmat foreign key (fk_Aluno_matricula) references Aluno (matricula);
 
-create table Possui (id_possui int primary key, fk_Disciplina_cod int not null, fk_Turma_numero int not null);
+alter table estuda add constraint fknum foreign key (fk_Turma_numero) references Turma (numero);
 
-alter table Possui add constraint fknum foreign key (fk_Turma_numero) references Disciplina (cod_disciplina);
+alter table possui add constraint fkdis foreign key ( fk_Disciplina_cod_disciplina ) references disciplina ( cod_disciplina ) ;
 
-alter table Possui add constraint fkdisc foreign key (fk_Disciplina_cod) references Turma (numero);
+alter table possui add constraint fktur foreign key ( fk_Turma_numero ) references turma ( numero ) ;
 
-create table Professor (matricula int primary key auto_increment, formacao varchar(30), nome varchar(80) not null);
+alter table leciona add constraint fkdis2 foreign key ( fk_Disciplina_cod_disciplina ) references disciplina ( cod_disciplina ) ;
 
-create table Leciona (id_leciona int primary key auto_increment, fk_Disciplina_cod_disciplina int not null, fk_Professor_matricula int not null);
+alter table leciona add constraint fkpro foreign key ( fk_professor_matricula ) references professor ( matricula ) ;
 
-alter table Leciona add constraint fkdis foreign key (fk_Disciplina_cod_disciplina) references Disciplina (cod_disciplina);
 
-alter table Leciona add constraint fkprof foreign key (fk_Professor_matricula) references Professor (matricula);
+insert into aluno values ( 3001, 'Godofredo Henrique', '2000-03-15', '123.456.789-01', 'Godojane Maia', 'gh@email.com' );
 
-create database estacionamento;
+insert into aluno values ( null, 'Josefina Winter', '1945-02-10', '123.456.789-02', 'Clenisbaldo Winter', null) ;
 
-create table Veiculo ( idVeiculo int primary key auto_increment, fabricante varchar(50) not null, modelo varchar(80) not null, placa char(7) not null unique );
+ insert into turma values (2023080, 'M', 'Técnico de Informática');
+
+insert into turma values (2023090, 'T', 'Técnico em Comunicação Visual');
+
+ insert into disciplina values (21, 'Programação');
+
+insert into disciplina values (null, 'Redes');
+
+insert into disciplina values (null, 'Tratamento de Imagem');

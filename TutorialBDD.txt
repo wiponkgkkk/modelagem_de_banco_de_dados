@@ -41,21 +41,85 @@ alter table Leciona add constraint fkprof foreign key (fk_Professor_matricula) r
 #Como modificar tabela
 
 alter table Veiculo rename Carro
-
 insert into carro values ( 101, 'VW', 'Gol', 'ABC1234' );
-
- 
-
 insert into carro values ( null, 'FIAT', 'Marea Turbo', 'ABC1235' );
-
- 
-
 insert into carro values ( null, 'Ford', 'Ka', 'ABC1236' );
-
- 
-
 insert into carro values ( null, 'Toyota', 'Corolla', 'ABC1237' );
-
- 
-
 insert into carro values ( null, 'Honda', 'Civic', 'ABC1238' );
+
+# Filtrar pesquisas
+
+select * from aluno where nascimento = '2011-08-24';
+select matricula, nome from aluno;
+select * from aluno where matricula > 3005;
+select * from aluno where matricula < 3007;
+select * from aluno where matricula != 3005;
+select * from aluno where matricula >= 3004 && matricula <=3008;
+select * from aluno where matricula >= 3004 and matricula <=3008;
+select * from aluno where matricula <= 3004 or matricula >= 3007 order by nascimento;
+select * from aluno where matricula <= 3004 or matricula >= 3007 order by nascimento desc;
+select * from aluno where email is null;
+select * from aluno where email is not null;
+select * from aluno where matricula between 3004 and 3008;
+select * from aluno where matricula in (3002, 3005, 3006);
+select * from aluno where not matricula in (3002, 3005, 3006);
+select * from aluno where nome like 'G%';
+select * from aluno where nome like '_o%';
+select * from aluno where nome like '%a%';
+select * from aluno where nome like '%Mouse';
+select * from aluno where nome like '%Mouse%';
+select * from aluno where nome like '%_Mouse%';
+ select * from aluno where nome like '% mouse%';
+select matricula, nome, month(nascimento) from aluno;
+
+# Ordenar pesquisa por ordem ascendente
+
+select matricula, nome from aluno order by nome;
+
+# Ordenar pesquisa por ordem descendente
+
+select matricula, nome, responsavel from aluno order by responsavel desc;
+
+# Tirar média
+
+select avg(dependentes) from professor;
+
+#Conta quantos professores tem 3 dependentes
+
+select count(dependentes) from professor where dependentes = 3;
+
+#Soma dos dependentes
+
+select sum(dependentes) from professor;
+
+# mais dependentes
+
+select max(dependentes) from professor;
+
+# menos dependentes
+
+select min(dependentes) from professor;
+
+# Função concat
+
+select concat('Nome: ', nome, '- Email:', email) from aluno where email is not null;
+
+# Todas letras maiusculas
+
+select upper(nome) from aluno;
+
+# minusculo
+
+select lower(nome) from aluno;
+
+# Conectar quais alunos estao matriculados em quais turmas
+
+select aluno.nome, turma.definicao, turma.turno from aluno, turma, estuda where aluno.matricula = estuda.fk_Aluno_Matricula and fk_Turma_numero = turma.numero;
+
+# Filtrando pela matricula do aluno
+
+select aluno.nome, turma.definicao, turma.turno from aluno, turma, estuda where aluno.matricula = estuda.fk_Aluno_Matricula and fk_Turma_numero = turma.numero and aluno.matricula = 3001;
+
+# Alunos e a disciplina que estudam
+
+select aluno.nome, disciplina.nome from aluno, turma, estuda, possui, disciplina where aluno.matricula = estuda.fk_Aluno_Matricula and estuda.fk_turma_numero = turma.numero and turma.numero = possui.fk_turma_numero and possui.fk_Disciplina_cod_disciplina = Disciplina.cod_disciplina;
